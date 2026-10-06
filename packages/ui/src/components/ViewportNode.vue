@@ -24,7 +24,7 @@ defineProps<{
         :src="url"
         class="w-full h-full border-0 block"
         :title="`${device.name} Viewport`"
-        sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
       />
     </div>
   </div>

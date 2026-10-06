@@ -5,6 +5,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "syncpane": "node packages/cli/dist/index.js",
+    "proxy": "node packages/cli/dist/index.js"
+  },
   "overrides": {
     "esbuild": "^0.28.2"
   }

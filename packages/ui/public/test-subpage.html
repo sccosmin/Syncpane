@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syncpane Test Lab - Subpage 2</title>
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 100px;
+    }
+
+    .top-nav {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 60;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .brand-link img {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.875rem;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: #ffffff;
+      background: rgba(16, 185, 129, 0.2);
+    }
+
+    .sticky-indicator {
+      position: sticky;
+      top: 53px;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+      background: rgba(15, 23, 42, 0.9);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8125rem;
+    }
+
+    .url-chip {
+      background: #090d16;
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-family: monospace;
+      color: #6ee7b7;
+      font-size: 0.775rem;
+    }
+
+    header.hero {
+      padding: 3.5rem 1.5rem 2.5rem;
+      text-align: center;
+      background: radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.25), transparent 70%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background-color: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #ffffff 40%, #6ee7b7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    .success-card {
+      border: 2px solid rgba(16, 185, 129, 0.8);
+      background: linear-gradient(180deg, rgba(30, 41, 59, 1) 0%, rgba(6, 78, 59, 0.25) 100%);
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+    }
+
+    a {
+      color: #6ee7b7;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    a:hover {
+      color: #a7f3d0;
+      text-decoration: underline;
+    }
+
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none !important;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .btn-success {
+      background-color: var(--primary);
+      color: #042f2e !important;
+      box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-success:hover {
+      background-color: var(--primary-dark);
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+
+    .nested-card-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none !important;
+      color: var(--text) !important;
+      transition: all 0.2s;
+    }
+
+    .nested-card-link:hover {
+      border-color: var(--primary);
+      background: #064e3b;
+      transform: translateY(-2px);
+    }
+
+    .nested-icon-box {
+      width: 40px;
+      height: 40px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nested-icon-box img {
+      width: 22px;
+      height: 22px;
+    }
+
+    .badge-pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.25);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="/test.html" class="brand-link">
+      <img src="/favicon.svg" alt="Syncpane logo" />
+      <span>Syncpane Test Lab</span>
+    </a>
+    <div class="nav-links">
+      <a href="/test.html">Main Lab</a>
+      <a href="/test-subpage.html" class="active">Subpage</a>
+    </div>
+  </nav>
+
+  <div class="sticky-indicator">
+    <div class="url-chip" title="Current Window Location">
+      URL: <span id="current-url">...</span>
+    </div>
+    <span style="color: #6ee7b7; font-weight: 600;">Subpage Active</span>
+  </div>
+
+  <header class="hero">
+    <div class="badge">Navigation Successful</div>
+    <h1>Subpage Destination Reached</h1>
+    <p class="subtitle">
+      All connected viewports successfully synchronized and navigated to this secondary view!
+    </p>
+  </header>
+
+  <main class="container">
+    <section class="card success-card">
+      <div class="section-tag">Navigation State Verified</div>
+      <h2>Two-Way Navigation Return Tests</h2>
+      <p>
+        Click any link below to test navigating back to the main lab page. Notice how clicking a link on this page broadcasts <code>sync-navigate</code> and returns all viewports to <code>/test.html</code>.
+      </p>
+
+      <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+        <!-- Return via Button -->
+        <div>
+          <a href="/test.html" class="btn-link btn-success">
+            <span>&larr;</span>
+            <span>Return to Main Lab Page</span>
+          </a>
+        </div>
+
+        <!-- Return via Nested Element Link -->
+        <div>
+          <div style="font-size: 0.85rem; font-weight: 600; color: #6ee7b7; margin-bottom: 0.5rem;">
+            Test Return with Nested &lt;img&gt; &amp; &lt;span&gt; (verifies <code>.closest('a')</code>)
+          </div>
+          <a href="/test.html?nav=return-nested" class="nested-card-link">
+            <div class="nested-icon-box">
+              <img src="/favicon.svg" alt="Icon" />
+            </div>
+            <div>
+              <strong style="color: #ffffff; display: block;">Return Home via Nested Element Link</strong>
+              <span style="font-size: 0.775rem; color: #94a3b8;">Click the logo icon or this text to return</span>
+            </div>
+            <span class="badge-pill">Nested &lt;img&gt; Link</span>
+          </a>
+        </div>
+
+        <!-- Return with Query Params -->
+        <div>
+          <div style="font-size: 0.85rem; font-weight: 600; color: #6ee7b7; margin-bottom: 0.5rem;">
+            Return with Query Params
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a href="/test.html?state=complete" class="btn-link" style="background: #0f172a; border: 1px solid var(--border); color: #cbd5e1;">?state=complete</a>
+            <a href="/test.html#section-04" class="btn-link" style="background: #0f172a; border: 1px solid var(--border); color: #cbd5e1;">Jump to Section 04 (#section-04)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div style="font-weight: 600; color: #e2e8f0; margin-bottom: 0.5rem;">
+      Syncpane Test Subpage Footer
+    </div>
+    <p><a href="/test.html">&larr; Back to Main Test Page</a></p>
+  </footer>
+
+  <script>
+    const el = document.getElementById('current-url');
+    if (el) {
+      el.textContent = window.location.pathname + window.location.search + window.location.hash;
+    }
+  </script>
+</body>
+</html>
+
