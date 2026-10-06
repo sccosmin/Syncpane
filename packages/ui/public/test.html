@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syncpane Test Lab - Long Page</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 100px;
+    }
+
+    header.hero {
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.25), transparent 70%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background-color: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #ffffff 40%, #a5b4fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .sticky-indicator {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+      background: rgba(15, 23, 42, 0.85);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+    }
+
+    .progress-bar-container {
+      width: 120px;
+      height: 8px;
+      background-color: var(--border);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #6366f1, #ec4899);
+      transition: width 0.1s ease-out;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(99, 102, 241, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .grid-demo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .grid-item {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .grid-item strong {
+      display: block;
+      color: #e2e8f0;
+      margin-bottom: 0.25rem;
+    }
+
+    .checkpoint {
+      border-left: 4px solid var(--primary);
+      padding-left: 1rem;
+      margin-top: 1rem;
+      font-style: italic;
+      color: #cbd5e1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="badge">Syncpane Test Ground</div>
+    <h1>Responsive Scroll & Layout Test</h1>
+    <p class="subtitle">
+      A comprehensive multi-section benchmark page designed to verify scroll synchronization, layout responsiveness, and WebSocket relay fidelity.
+    </p>
+  </header>
+
+  <div class="sticky-indicator">
+    <span id="scroll-label">Scroll: <strong>0%</strong></span>
+    <div class="progress-bar-container">
+      <div id="progress-bar" class="progress-bar"></div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="card">
+      <div class="section-tag">Section 01</div>
+      <h2>Viewport & Synchronizer Overview</h2>
+      <p>
+        When multiple devices are loaded inside the Syncpane UI dashboard, scrolling any single iframe triggers the injected <code>__syncpane.js</code> script. The script calculates current scroll percentage relative to the document scroll height and window height, emitting it to the proxy server.
+      </p>
+      <div class="grid-demo">
+        <div class="grid-item">
+          <strong>Mobile</strong>
+          375px &times; 667px
+        </div>
+        <div class="grid-item">
+          <strong>Tablet</strong>
+          768px &times; 1024px
+        </div>
+        <div class="grid-item">
+          <strong>Desktop</strong>
+          1280px &times; 800px
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Section 02</div>
+      <h2>Fluid Typography & Scaling</h2>
+      <p>
+        Responsive web layouts often adjust padding, grid columns, and font sizes across breakpoints. This causes the total document scroll height to differ between viewports. Scroll percentage synchronization ensures all screens remain aligned relative to content progression regardless of pixel height variance.
+      </p>
+      <div class="checkpoint">
+        Checkpoint Alpha: Reaching this point indicates that mobile viewports have begun scrolling smoothly.
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Section 03</div>
+      <h2>Grid Layout & Media Queries</h2>
+      <p>
+        Observe how the columns in this 4-box component wrap cleanly on narrow screens while expanding into a horizontal row on wide screens:
+      </p>
+      <div class="grid-demo">
+        <div class="grid-item">
+          <strong>Card A</strong>
+          <span style="color: #94a3b8">Interactive State</span>
+        </div>
+        <div class="grid-item">
+          <strong>Card B</strong>
+          <span style="color: #94a3b8">Flex Column</span>
+        </div>
+        <div class="grid-item">
+          <strong>Card C</strong>
+          <span style="color: #94a3b8">Auto Sizing</span>
+        </div>
+        <div class="grid-item">
+          <strong>Card D</strong>
+          <span style="color: #94a3b8">Anchor Target</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Section 04</div>
+      <h2>Midpoint Milestone (50% Range)</h2>
+      <p>
+        At this depth, inspect whether all device frames display identical section content. Notice how anti-echo locks prevent ping-pong scrolling collisions between connected clients.
+      </p>
+      <div class="checkpoint">
+        Checkpoint Beta: Halfway mark. If both the phone and laptop frames show Section 04, the two-way sync loop is healthy.
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Section 05</div>
+      <h2>Long-form Content & Text Rhythm</h2>
+      <p>
+        Web design consistency requires evaluating paragraph spacing, line lengths, and hierarchy across multiple form factors simultaneously without needing manual window resizing or separate browser windows.
+      </p>
+      <p style="margin-top: 0.75rem; color: #94a3b8;">
+        "Responsive web design is the approach that suggests that design and development should respond to the user's behavior and environment based on screen size, platform and orientation."
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Section 06</div>
+      <h2>Complex Data Presentation</h2>
+      <p>
+        Below is a table simulated with flex cards, demonstrating content density testing across small and large form factors:
+      </p>
+      <div class="grid-demo">
+        <div class="grid-item">
+          <strong>Status</strong>
+          <span style="color: #10b981;">Connected</span>
+        </div>
+        <div class="grid-item">
+          <strong>Transport</strong>
+          <span>WebSocket</span>
+        </div>
+        <div class="grid-item">
+          <strong>Anti-Echo</strong>
+          <span style="color: #6366f1;">Active (~50ms)</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Section 07</div>
+      <h2>Lower Quadrant Stress Test</h2>
+      <p>
+        Scroll velocity testing: rapidly fling-scroll or use the mouse wheel to verify that percentage math handles extreme rates of change without jitter or deadlocks.
+      </p>
+      <div class="checkpoint">
+        Checkpoint Gamma: Nearing the bottom bounds of the document body.
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Section 08</div>
+      <h2>Document Footprint & Limits</h2>
+      <p>
+        Verifying scroll limits: When the user hits the bottom limit on any device, the percentage approaches 100% and should cleanly bottom out across all viewport frames without overscrolling glitches.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div style="font-weight: 600; color: #e2e8f0; margin-bottom: 0.5rem;">
+      Syncpane Test Page Footer - 100% Scrolled
+    </div>
+    <p>You have reached the bottom of the development test page.</p>
+  </footer>
+
+  <script>
+    // Live scroll indicator update
+    function updateScrollIndicator() {
+      const scrollY = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = maxScroll > 0 ? Math.min(100, Math.max(0, Math.round((scrollY / maxScroll) * 100))) : 0;
+      
+      const label = document.getElementById('scroll-label');
+      const bar = document.getElementById('progress-bar');
+      
+      if (label) label.innerHTML = 'Scroll: <strong>' + pct + '%</strong>';
+      if (bar) bar.style.width = pct + '%';
+    }
+
+    window.addEventListener('scroll', updateScrollIndicator, { passive: true });
+    window.addEventListener('resize', updateScrollIndicator);
+    updateScrollIndicator();
+  </script>
+</body>
+</html>
+
